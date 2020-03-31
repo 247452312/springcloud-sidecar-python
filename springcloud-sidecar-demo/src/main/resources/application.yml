@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: py-sidecar  #服务名
+
+server:
+  port: 8070
+
+eureka: #加入到eureka
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+sidecar:
+  port: 5001     #异构微服务的端口
+  healthUri: http://localhost:${sidecar.port}/health  #对应第三方程序的health接口
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+ribbon:
+  ConnectTimeout: 5000
+  ReadTimeout: 5000
